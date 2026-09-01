@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Targa Matricola — Antico Olindo e Cesare</title>
+<style>
+  :root{
+    --steel-1:#eef1f4; --steel-2:#d6dbe0; --steel-3:#c4cbd2; --engrave:#1b2129; --engrave-soft:#3c4653; --edge:#9aa4ad;
+    --bg:#0c1219; --accent:#2f6fb0;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:linear-gradient(180deg,#0c1219,#0e1620);min-height:100vh;
+    font-family:"Segoe UI",system-ui,-apple-system,sans-serif;color:#cfe0f0;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;gap:14px}
+
+  .targa{width:100%;max-width:440px;color:var(--engrave);
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.30) 0 1px, rgba(0,0,0,0) 1px 3px),
+      linear-gradient(160deg, var(--steel-1), var(--steel-3) 60%, var(--steel-2));
+    border:2px solid var(--edge);border-radius:10px;padding:20px 22px;position:relative;
+    box-shadow:0 12px 34px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.65)}
+  .rv{position:absolute;width:10px;height:10px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,#f4f6f8,#7f8a94 70%,#59636c);box-shadow:inset 0 0 2px rgba(0,0,0,.4)}
+  .rv.tl{top:9px;left:9px}.rv.tr{top:9px;right:9px}.rv.bl{bottom:9px;left:9px}.rv.br{bottom:9px;right:9px}
+
+  .head{border-bottom:1.5px solid var(--engrave-soft);padding-bottom:10px;margin-bottom:14px}
+  .brand{font-size:19px;font-weight:800;letter-spacing:.3px;line-height:1.15}
+  .brand small{display:block;font-size:10px;font-weight:600;letter-spacing:2.5px;color:var(--engrave-soft);margin-top:3px}
+  .norma{font-size:9.5px;letter-spacing:1px;color:var(--engrave-soft);margin-top:8px}
+
+  .rows{display:flex;flex-direction:column;gap:9px}
+  .row{display:flex;flex-direction:column;gap:1px}
+  .k{font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--engrave-soft);font-weight:700}
+  .v{font-size:16px;font-weight:700;font-family:"Consolas","SF Mono",monospace;word-break:break-word}
+
+  .foot{max-width:440px;width:100%;text-align:center;color:#5f7488;font-size:11px;line-height:1.5}
+  .empty{max-width:440px;background:#121a24;border:1px solid #233042;border-radius:12px;padding:22px;text-align:center;color:#9fb3c8}
+  .empty b{color:#cfe0f0}
+</style>
+</head>
+<body>
+  <div id="content"></div>
+  <div class="foot" id="foot"></div>
+
+<script>
+  function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+  function g(k){ return (new URLSearchParams(location.search)).get(k) || ''; }
+  function fmtFecha(iso){ if(!iso) return '—'; const p=iso.split('-'); return p.length===3?(p[2]+'/'+p[1]+'/'+p[0]):iso; }
+
+  const empresa   = g('empresa') || 'Antico Olindo e Cesare S.r.l.';
+  const macchina  = g('macchina');
+  const matricola = g('matricola');
+  const kw=g('kw'), v=g('v'), rpm=g('rpm'), cos=g('cos');
+  const girante=g('girante'), diam=g('diam'), data=g('data');
+
+  const el = document.getElementById('content');
+
+  if (!matricola && !macchina) {
+    el.className='';
+    el.innerHTML = '<div class="empty">Questa pagina mostra i dati di una macchina a partire dal suo codice QR.<br><br>' +
+      '<b>Nessun dato ricevuto.</b> Scansiona il QR sulla targa della macchina.</div>';
+  } else {
+    const motore = [kw && (kw+' kW'), v && (v+' V'), rpm && (rpm+' rpm'), cos && ('cosφ '+cos)].filter(Boolean).join(' · ') || '—';
+    const gir = [girante, diam && ('Ø'+diam+' mm')].filter(Boolean).join(' · ') || '—';
+    const rows = [
+      ['Macchina', macchina || '—'],
+      ['Matricola', matricola || '—'],
+      ['Motore', motore],
+      ['Girante', gir],
+      ['Data di fabbricazione', fmtFecha(data)]
+    ];
+    el.innerHTML =
+      '<div class="targa">' +
+      '<span class="rv tl"></span><span class="rv tr"></span><span class="rv bl"></span><span class="rv br"></span>' +
+      '<div class="head"><div class="brand">'+esc(empresa)+'<small>AGITATORI INDUSTRIALI</small></div>' +
+      '<div class="norma">Conforme · Direttiva Macchine UE</div></div>' +
+      '<div class="rows">' +
+      rows.map(function(r){ return '<div class="row"><div class="k">'+esc(r[0])+'</div><div class="v">'+esc(r[1])+'</div></div>'; }).join('') +
+      '</div></div>';
+    document.getElementById('foot').innerHTML = 'Dati identificativi della macchina · targa digitale';
+  }
+</script>
+</body>
+</html>
