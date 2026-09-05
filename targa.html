@@ -1,141 +1,179 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Targa Matricola — Antico Olindo e Cesare</title>
-<style>
-  :root{
-    --steel-1:#eef1f4; --steel-2:#d6dbe0; --steel-3:#c4cbd2; --engrave:#1b2129; --engrave-soft:#3c4653; --edge:#9aa4ad;
-    --bg:#0c1219; --accent:#2f6fb0;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0}
-  body{background:linear-gradient(180deg,#0c1219,#0e1620);min-height:100vh;
-    font-family:"Segoe UI",system-ui,-apple-system,sans-serif;color:#cfe0f0;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;gap:14px}
-
-  .targa{width:100%;max-width:440px;color:var(--engrave);
-    background:
-      repeating-linear-gradient(90deg, rgba(255,255,255,.30) 0 1px, rgba(0,0,0,0) 1px 3px),
-      linear-gradient(160deg, var(--steel-1), var(--steel-3) 60%, var(--steel-2));
-    border:2px solid var(--edge);border-radius:10px;padding:20px 22px;position:relative;
-    box-shadow:0 12px 34px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.65)}
-  .rv{position:absolute;width:10px;height:10px;border-radius:50%;
-    background:radial-gradient(circle at 35% 35%,#f4f6f8,#7f8a94 70%,#59636c);box-shadow:inset 0 0 2px rgba(0,0,0,.4)}
-  .rv.tl{top:9px;left:9px}.rv.tr{top:9px;right:9px}.rv.bl{bottom:9px;left:9px}.rv.br{bottom:9px;right:9px}
-
-  .head{border-bottom:1.5px solid var(--engrave-soft);padding-bottom:10px;margin-bottom:14px}
-  .brand{font-size:19px;font-weight:800;letter-spacing:.3px;line-height:1.15}
-  .brand small{display:block;font-size:10px;font-weight:600;letter-spacing:2.5px;color:var(--engrave-soft);margin-top:3px}
-  .norma{font-size:9.5px;letter-spacing:1px;color:var(--engrave-soft);margin-top:8px}
-
-  .rows{display:flex;flex-direction:column;gap:9px}
-  .row{display:flex;flex-direction:column;gap:1px}
-  .k{font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--engrave-soft);font-weight:700}
-  .v{font-size:16px;font-weight:700;font-family:"Consolas","SF Mono",monospace;word-break:break-word}
-
-  .foot{max-width:440px;width:100%;text-align:center;color:#5f7488;font-size:11px;line-height:1.5}
-  .empty{max-width:440px;background:#121a24;border:1px solid #233042;border-radius:12px;padding:22px;text-align:center;color:#9fb3c8}
-  .empty b{color:#cfe0f0}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Targa macchina — Antico Olindo e Cesare</title>
+  <style>
+    :root {
+      --bg: #0a0f1c;
+      --card: #131b2e;
+      --line: #233047;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #5b91b5;
+      --green: #15803d;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: radial-gradient(ellipse 900px 400px at 50% -5%, rgba(29,78,216,0.12), transparent), var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 20px 14px 40px;
+    }
+    .wrap { max-width: 560px; margin: 0 auto; }
+    .brand {
+      text-align: center; margin-bottom: 18px; padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand .logo {
+      width: 56px; height: 56px; margin: 0 auto 10px;
+      border: 2px solid #94a3b8; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 1.4rem; color: #cbd5e1;
+      background: #0f172a;
+    }
+    .brand h1 { font-size: 1.05rem; letter-spacing: 0.04em; }
+    .brand .addr { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+    .card {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: 10px; padding: 16px 18px; margin-bottom: 14px;
+    }
+    .card h2 {
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--accent); margin-bottom: 12px;
+    }
+    .row {
+      display: flex; justify-content: space-between; gap: 12px;
+      padding: 7px 0; border-bottom: 1px solid rgba(35,48,71,0.7);
+      font-size: 0.9rem;
+    }
+    .row:last-child { border-bottom: none; }
+    .row .k { color: var(--muted); flex: 0 0 42%; }
+    .row .v { font-weight: 650; text-align: right; word-break: break-word; font-family: ui-monospace, Consolas, monospace; font-size: 0.86rem; }
+    .manual-btn {
+      display: block; width: 100%; text-align: center;
+      background: var(--green); color: #fff; text-decoration: none;
+      font-weight: 700; padding: 14px 16px; border-radius: 8px;
+      font-size: 0.95rem; margin-top: 4px;
+    }
+    .manual-btn:active { opacity: 0.9; }
+    .manual-meta { text-align: center; font-size: 0.75rem; color: var(--muted); margin-top: 8px; }
+    .legal {
+      margin-top: 18px; font-size: 0.7rem; color: #64748b; line-height: 1.55;
+      text-align: center; padding: 0 8px;
+    }
+    .err {
+      background: #201615; border: 1px solid #a94747; color: #c99494;
+      border-radius: 8px; padding: 14px; font-size: 0.88rem; line-height: 1.5;
+    }
+    .badge {
+      display: inline-block; font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      background: #1e293b; color: #94a3b8; border: 1px solid #334155;
+      border-radius: 3px; padding: 2px 7px; margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
-  <div id="content"></div>
-  <div class="foot" id="foot"></div>
+  <div class="wrap" id="app">
+    <div class="brand">
+      <div class="logo">AO</div>
+      <h1 id="empresa">Antico Olindo e Cesare S.r.l.</h1>
+      <div class="addr" id="indirizzo">Via Savona 26, 20144 Milano, Italy</div>
+    </div>
 
-<script>
-  function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
-  function g(k){ return (new URLSearchParams(location.search)).get(k) || ''; }
-  function fmtFecha(iso){ if(!iso) return '—'; const p=iso.split('-'); return p.length===3?(p[2]+'/'+p[1]+'/'+p[0]):iso; }
+    <div id="content"></div>
 
-  const empresa   = g('empresa') || 'Antico Olindo e Cesare S.r.l.';
-  const macchina  = g('macchina');
-  const matricola = g('matricola');
-  const kw=g('kw'), v=g('v'), rpm=g('rpm'), cos=g('cos');
-  const girante=g('girante'), diam=g('diam'), data=g('data');
+    <p class="legal">
+      Istruzioni d'uso in formato digitale — Regolamento (UE) 2023/1230 Art. 10.7.<br>
+      Pagina di identificazione macchina (PoC). In produzione: hosting del fabbricante, disponibilità ≥ 10 anni.
+    </p>
+  </div>
 
-  const el = document.getElementById('content');
+  <script>
+  (function () {
+    function q(key) {
+      try {
+        var v = new URLSearchParams(window.location.search).get(key);
+        return (v == null || v === '') ? '' : v;
+      } catch (e) { return ''; }
+    }
+    function row(k, v) {
+      if (v === '' || v == null) return '';
+      return '<div class="row"><span class="k">' + k + '</span><span class="v">' + escapeHtml(String(v)) + '</span></div>';
+    }
+    function escapeHtml(s) {
+      return s.replace(/[&<>"']/g, function (c) {
+        return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+      });
+    }
 
-  if (!matricola && !macchina) {
-    el.className='';
-    el.innerHTML = '<div class="empty">Questa pagina mostra i dati di una macchina a partire dal suo codice QR.<br><br>' +
-      '<b>Nessun dato ricevuto.</b> Scansiona il QR sulla targa della macchina.</div>';
-  } else {
-    const motore = [kw && (kw+' kW'), v && (v+' V'), rpm && (rpm+' rpm'), cos && ('cosφ '+cos)].filter(Boolean).join(' · ') || '—';
-    const gir = [girante, diam && ('Ø'+diam+' mm')].filter(Boolean).join(' · ') || '—';
-    const rows = [
-      ['Macchina', macchina || '—'],
-      ['Matricola', matricola || '—'],
-      ['Motore', motore],
-      ['Girante', gir],
-      ['Data di fabbricazione', fmtFecha(data)]
-    ];
-    el.innerHTML =
-      '<div class="targa">' +
-      '<span class="rv tl"></span><span class="rv tr"></span><span class="rv bl"></span><span class="rv br"></span>' +
-      '<div class="head"><div class="brand">'+esc(empresa)+'<small>AGITATORI INDUSTRIALI</small></div>' +
-      '<div class="norma">Conforme · Direttiva Macchine UE</div></div>' +
-      '<div class="rows">' +
-      rows.map(function(r){ return '<div class="row"><div class="k">'+esc(r[0])+'</div><div class="v">'+esc(r[1])+'</div></div>'; }).join('') +
-      '</div></div>';
-    // Botones de documentación / sitio web
-    var acc = document.createElement('div');
-    acc.style.cssText = 'display:flex;gap:10px;max-width:440px;width:100%;margin-top:4px;';
-    acc.innerHTML =
-      '<button onclick="abrirRegistro()" style="flex:1;background:#1b2129;border:1px solid #3c4653;color:#eef3f9;border-radius:9px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;">📖 Manuale d\'uso</button>' +
-      '<a href="https://www.anticomix.it/en/" target="_blank" rel="noopener" style="flex:1;text-decoration:none;"><button style="width:100%;background:#0f4c81;border:1px solid #2f6fb0;color:#fff;border-radius:9px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;">🌐 anticomix.it</button></a>';
-    el.parentNode.insertBefore(acc, document.getElementById('foot'));
-    document.getElementById('foot').innerHTML = 'Dati identificativi della macchina · targa digitale';
-  }
+    var empresa = q('empresa') || 'Antico Olindo e Cesare S.r.l.';
+    var indirizzo = q('indirizzo') || 'Via Savona 26, 20144 Milano, Italy';
+    document.getElementById('empresa').textContent = empresa;
+    document.getElementById('indirizzo').textContent = indirizzo;
 
-  // ====== REGISTRO (demo) para documentación reservada ======
-  var LOGO_ANTICO = "data:image/png;base64,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";
+    var macchina = q('macchina');
+    var matricola = q('matricola');
+    var manualUrl = q('manualUrl');
 
-  function abrirRegistro(){
-    var old=document.getElementById('regModal'); if(old) old.remove();
-    var m=document.createElement('div');
-    m.id='regModal';
-    m.style.cssText='position:fixed;inset:0;z-index:9999;background:rgba(6,10,16,.85);display:flex;align-items:center;justify-content:center;padding:18px;';
-    m.innerHTML =
-      '<div style="background:#0f1826;border:1px solid #2a3a4e;border-radius:16px;max-width:400px;width:100%;padding:24px;color:#cfe0f0;font-family:inherit;box-shadow:0 20px 60px rgba(0,0,0,.6);">'+
-        '<div style="background:#fff;border-radius:10px;padding:14px;text-align:center;margin-bottom:18px;"><img src="'+LOGO_ANTICO+'" alt="Antico Olindo e Cesare" style="max-width:230px;width:100%;height:auto;"></div>'+
-        '<div style="font-size:16px;font-weight:800;margin-bottom:4px;">Documentazione riservata</div>'+
-        '<div style="font-size:12.5px;color:#8fa4bc;margin-bottom:18px;line-height:1.5;">Il manuale d\'uso e manutenzione è riservato ai clienti. Registrati per richiedere l\'accesso.</div>'+
-        '<div id="regForm">'+
-          '<label style="display:block;font-size:11px;color:#8fa4bc;margin-bottom:4px;">Nome e cognome</label>'+
-          '<input id="reg-nome" type="text" style="width:100%;background:#0b1119;border:1px solid #2a3a4e;border-radius:8px;color:#eef3f9;padding:9px 11px;font-size:13px;margin-bottom:12px;box-sizing:border-box;">'+
-          '<label style="display:block;font-size:11px;color:#8fa4bc;margin-bottom:4px;">Azienda</label>'+
-          '<input id="reg-azienda" type="text" style="width:100%;background:#0b1119;border:1px solid #2a3a4e;border-radius:8px;color:#eef3f9;padding:9px 11px;font-size:13px;margin-bottom:12px;box-sizing:border-box;">'+
-          '<label style="display:block;font-size:11px;color:#8fa4bc;margin-bottom:4px;">Email</label>'+
-          '<input id="reg-email" type="email" style="width:100%;background:#0b1119;border:1px solid #2a3a4e;border-radius:8px;color:#eef3f9;padding:9px 11px;font-size:13px;margin-bottom:14px;box-sizing:border-box;">'+
-          '<label style="display:flex;gap:8px;align-items:flex-start;font-size:11.5px;color:#8fa4bc;margin-bottom:18px;line-height:1.4;cursor:pointer;"><input type="checkbox" id="reg-consenso" style="margin-top:2px;"> Acconsento al trattamento dei dati per ricevere la documentazione tecnica.</label>'+
-          '<div style="display:flex;gap:8px;">'+
-            '<button onclick="document.getElementById(\'regModal\').remove()" style="flex:0 0 auto;background:#1a2432;border:1px solid #2a3a4e;color:#cfe0f0;border-radius:9px;padding:11px 16px;font-weight:700;cursor:pointer;">Annulla</button>'+
-            '<button onclick="enviarRegistro()" style="flex:1;background:#2f6fb0;border:none;color:#fff;border-radius:9px;padding:11px;font-weight:800;cursor:pointer;">Richiedi accesso</button>'+
-          '</div>'+
-        '</div>'+
-        '<div id="regOk" style="display:none;text-align:center;padding:10px 0;">'+
-          '<div style="font-size:40px;margin-bottom:8px;">✓</div>'+
-          '<div style="font-size:15px;font-weight:800;margin-bottom:8px;" id="regOkTitle"></div>'+
-          '<div style="font-size:12.5px;color:#8fa4bc;line-height:1.5;">Nella versione ufficiale, l\'accesso verrebbe verificato e il manuale fornito dal server aziendale.<br><br><i>Demo — nessun dato viene salvato.</i></div>'+
-          '<button onclick="document.getElementById(\'regModal\').remove()" style="margin-top:16px;background:#1a2432;border:1px solid #2a3a4e;color:#cfe0f0;border-radius:9px;padding:10px 20px;font-weight:700;cursor:pointer;">Chiudi</button>'+
-        '</div>'+
-      '</div>';
-    document.body.appendChild(m);
-  }
+    if (!matricola && !macchina) {
+      document.getElementById('content').innerHTML =
+        '<div class="err">Nessun dato macchina nel QR.<br>Scansionare un codice generato dalla HMI di collaudo oppure aprire un URL con parametri <code>matricola</code> e <code>manualUrl</code>.</div>';
+      return;
+    }
 
-  function enviarRegistro(){
-    var nome=(document.getElementById('reg-nome').value||'').trim();
-    var email=(document.getElementById('reg-email').value||'').trim();
-    var cons=document.getElementById('reg-consenso').checked;
-    if(!nome || !email){ alert('Inserisci nome ed email.'); return; }
-    if(email.indexOf('@')<0){ alert('Email non valida.'); return; }
-    if(!cons){ alert('Devi accettare il trattamento dei dati.'); return; }
-    document.getElementById('regForm').style.display='none';
-    document.getElementById('regOkTitle').textContent='Grazie, '+nome.split(' ')[0]+'!';
-    document.getElementById('regOk').style.display='block';
-  }
-</script>
+    var motoreParts = [];
+    if (q('kw')) motoreParts.push(q('kw') + ' kW');
+    if (q('v')) motoreParts.push(q('v') + ' V');
+    if (q('hz')) motoreParts.push(q('hz') + ' Hz');
+    if (q('poli')) motoreParts.push(q('poli') + ' poli');
+    if (q('rpmEje')) motoreParts.push(q('rpmEje') + ' rpm asse');
+    else if (q('rpm')) motoreParts.push(q('rpm') + ' rpm sync');
+    if (q('in')) motoreParts.push('In ' + q('in') + ' A');
+    if (q('cos')) motoreParts.push('cosφ ' + q('cos'));
+    if (q('eta')) motoreParts.push('η ' + q('eta') + '%');
+
+    var girante = q('girante');
+    if (q('diam')) girante = (girante ? girante + ' · ' : '') + 'Ø' + q('diam') + ' mm';
+    if (q('np')) girante = (girante ? girante + ' · ' : '') + 'Np ' + q('np');
+
+    var html = '';
+    html += '<div class="card"><span class="badge">Identificazione</span><h2>Macchina</h2>';
+    html += row('Tipo / modello', macchina);
+    html += row('Matricola', matricola);
+    html += row('Anno', q('anno') || (q('data') || '').slice(0, 4));
+    html += row('Data', q('data'));
+    html += row('Massa (kg)', q('massa'));
+    html += row('Collaudo ID', q('collaudoId'));
+    html += '</div>';
+
+    html += '<div class="card"><h2>Motore / trasmissione</h2>';
+    html += row('Dati', motoreParts.join(' · '));
+    html += '</div>';
+
+    if (girante) {
+      html += '<div class="card"><h2>Girante di riferimento</h2>';
+      html += row('Modello / Ø', girante);
+      html += '</div>';
+    }
+
+    html += '<div class="card"><h2>Istruzioni d\'uso</h2>';
+    if (manualUrl) {
+      var safeHref = escapeHtml(manualUrl);
+      html += '<a class="manual-btn" href="' + safeHref + '" target="_blank" rel="noopener">📄 Scarica / apri il manuale PDF</a>';
+      html += '<div class="manual-meta">Revisione ' + escapeHtml(q('manualRev') || '1') +
+              ' · Lingua ' + escapeHtml((q('manualLang') || 'it').toUpperCase()) +
+              (q('manualDate') ? ' · ' + escapeHtml(q('manualDate')) : '') + '</div>';
+    } else {
+      html += '<div class="err">URL del manuale non presente nel QR (<code>manualUrl</code>). Configurarla nella HMI (Admin → QR Targa).</div>';
+    }
+    html += '</div>';
+
+    document.getElementById('content').innerHTML = html;
+  })();
+  </script>
 </body>
 </html>
